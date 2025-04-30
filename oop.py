@@ -1,50 +1,7 @@
-class SingleClass:
-    ...
-
-class Classey:
-    varia = 2
-
-    def method(self):
-        print(self.varia)
-
-
-object_one = Classey()
-object_two = Classey()
-object_one.varia = 3
-object_two.varia = 5
-# print(object_one.varia)
-# print(object_two.varia)
-
-class Transport:
-    def __init__(self, air, water):
-        self.air = air
-        self.water = water
-
-
-obj_transport = Transport("Jet", "Ship")
-obj2 = Transport("Boat", "Hoovercraft")
-# print(obj_transport.air, obj_transport.water)
-# print(obj2.air, obj2.water)
-
-class Person:
-    def __init__(self, fname, lname):
-        self.fname = fname
-        self.lname = lname
-
-
-    def printname(self):
-        print(self.fname, self.lname)
-
-
-x = Person("John", "Doe")
-d = Person("Jane", "Doe")
-# x.printname()
-# d.printname()
-
 class ShoppingCart:
-    def __init__(self, ):
-        self.items = []
-
+    def __init__(self):
+        self.items = []  # List of (item_name, qty)
+        self.discount = 0  # Discount in percentage
 
     def add_item(self, item_name, qty):
         item = (item_name, qty)
@@ -56,29 +13,37 @@ class ShoppingCart:
                 self.items.remove(item)
                 break
 
-#This method calculates number of items in the cart or list
+    def set_discount(self, discount_percent):
+        if 0 <= discount_percent <= 100:
+            self.discount = discount_percent
+        else:
+            print("Invalid discount. Must be between 0 and 100.")
+
     def calculate_total(self):
         total = 0
         for item in self.items:
-            total =+ item[1]
+            total += item[1]
+        if self.discount > 0:
+            total = total * (1 - self.discount / 100)
         return total
 
+
+# === Usage Example ===
 cart = ShoppingCart()
 
-#Add items to our cart
+# Add items to cart
 cart.add_item("Kiwi", 160)
 cart.add_item("Orange", 190)
 cart.add_item("Passive", 76)
 
-print("Current items in cart")
+# Set a discount
+cart.set_discount(10)  # 10% discount
+
+# Display cart contents
+print("\nCurrent items in cart:")
 for item in cart.items:
-    print(item[0], "-", item[1])
+    print(f"{item[0]} - {item[1]}")
 
+# Calculate and show total after discount
 total_qty = cart.calculate_total()
-print("Total quantity: ", total_qty)
-
-
-
-
-
-
+print(f"\nTotal quantity after discount: {total_qty:.2f}")
